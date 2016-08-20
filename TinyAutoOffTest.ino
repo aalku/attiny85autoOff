@@ -26,7 +26,12 @@ void loop() {
     // Power off
     pinMode(powerPin, OUTPUT); // Full output, not only pull up/down resistor
     digitalWrite(powerPin, LOW); // Turn the whole thing off
-    delay(5000);
+    delay(500);
+
+    // If still alive the button must be pressed, lets stop the power sink through the button to powerPin and restart
+    pinMode(powerPin, INPUT); // Pin as input
+    digitalWrite(powerPin, HIGH); //  ON with internal pullup resistor
+    t0 = millis();
   }
   digitalWrite(ledPin, analogRead(powerPin) > 1024*2/3); // Turn on led if A3 is > 2/3 of VCC
 }
